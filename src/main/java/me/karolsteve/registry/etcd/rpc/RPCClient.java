@@ -1,4 +1,4 @@
-package com.karolsteve.registry.etcd.rpc;
+package me.karolsteve.registry.etcd.rpc;
 
 /**
  * Created By Steve Tchatchouang

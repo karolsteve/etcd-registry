@@ -1,6 +1,6 @@
-package com.karolsteve.registry.etcd.rpc;
+package me.karolsteve.registry.etcd.rpc;
 
-import com.karolsteve.registry.etcd.EtcdWatcher;
+import me.karolsteve.registry.etcd.EtcdWatcher;
 
 /**
  * Created By Steve Tchatchouang
