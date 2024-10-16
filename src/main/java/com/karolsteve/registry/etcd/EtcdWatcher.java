@@ -1,4 +1,4 @@
-package com.ondjoss.registry.etcd;
+package com.karolsteve.registry.etcd;
 
 import io.etcd.jetcd.ByteSequence;
 import io.etcd.jetcd.Client;
@@ -42,10 +42,6 @@ public class EtcdWatcher {
         //no instance
         this.client = client;
         this.serviceName = serviceName;
-    }
-
-    public void refresh() {
-        resolve();
     }
 
     public interface Delegate {

@@ -1,4 +1,4 @@
-package com.ondjoss.registry.etcd;
+package com.karolsteve.registry.etcd;
 
 import io.etcd.jetcd.Client;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package com.ondjoss.registry.etcd.rpc;
+package com.karolsteve.registry.etcd.rpc;
 
-import com.ondjoss.registry.etcd.EtcdWatcher;
+import com.karolsteve.registry.etcd.EtcdWatcher;
 
 /**
  * Created By Steve Tchatchouang

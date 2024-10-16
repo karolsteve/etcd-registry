@@ -1,4 +1,4 @@
-package com.ondjoss.registry.etcd.rpc;
+package com.karolsteve.registry.etcd.rpc;
 
 /**
  * Created By Steve Tchatchouang

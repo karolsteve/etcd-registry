@@ -1,7 +1,7 @@
-package com.ondjoss.registry.etcd.rpc;
+package com.karolsteve.registry.etcd.rpc;
 
-import com.ondjoss.registry.etcd.EtcdServiceAddrObserver;
-import com.ondjoss.registry.etcd.EtcdWatcher;
+import com.karolsteve.registry.etcd.EtcdServiceAddrObserver;
+import com.karolsteve.registry.etcd.EtcdWatcher;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
