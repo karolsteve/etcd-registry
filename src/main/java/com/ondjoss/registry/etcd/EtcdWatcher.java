@@ -26,8 +26,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
 public class EtcdWatcher {
-    private static final String SERVICE_ROOT = "/test";
-
     private final Client client;
     private final String serviceName;
     private Watch.Watcher watcher;
@@ -57,9 +55,9 @@ public class EtcdWatcher {
         void onAddresses(List<NodeData> servers);
     }
 
-    public void start() {
-        watchKeys();
-        resolve();
+    public void start(String serviceRoot) {
+        watchKeys(serviceRoot);
+        resolve(serviceRoot);
     }
 
     public void stop() {
@@ -68,8 +66,8 @@ public class EtcdWatcher {
             watcher.close();
     }
 
-    private void resolve() {
-        String serviceDir = serviceDir();
+    private void resolve(String serviceRoot) {
+        String serviceDir = serviceDir(serviceRoot);
         log.info("resolve key called {}", serviceDir);
         ByteSequence prefix = ByteSequence.from(serviceDir, StandardCharsets.UTF_8);
         CompletableFuture<GetResponse> getFuture = client.getKVClient().get(prefix, GetOption.builder().isPrefix(true).build());
@@ -89,12 +87,12 @@ public class EtcdWatcher {
 
             updateCurrentServers(servers);
 
-            log.warn("Current list size 2i {} -> key is " + SERVICE_ROOT + "/{}", currentServers, serviceName);
+            log.warn("Current list size 2i {} -> key is {}/{}", currentServers, serviceRoot, serviceName);
         });
     }
 
-    private String serviceDir() {
-        return String.format("%s/%s/", SERVICE_ROOT, serviceName);
+    private String serviceDir(String serviceRoot) {
+        return String.format("%s/%s/", serviceRoot, serviceName);
     }
 
     private void updateCurrentServers(List<NodeData> newServers) {
@@ -117,8 +115,8 @@ public class EtcdWatcher {
         }
     }
 
-    private void watchKeys() {
-        String serviceDir = serviceDir();
+    private void watchKeys(String serviceRoot) {
+        String serviceDir = serviceDir(serviceRoot);
         log.info("Watch key called {}", serviceDir);
         ByteSequence key = ByteSequence.from(serviceDir, StandardCharsets.UTF_8);
         watcher = client.getWatchClient().watch(key, WatchOption.builder().isPrefix(true).build(), new Watch.Listener() {

@@ -33,8 +33,8 @@ public class EtcdServiceAddrObserver implements EtcdWatcher.Delegate {
         this.watcher = EtcdWatcher.make(client, serviceName, this);
     }
 
-    public void start() {
-        this.watcher.start();
+    public void start(String serviceRoot) {
+        this.watcher.start(serviceRoot);
     }
 
     public void stop() {

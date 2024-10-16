@@ -5,7 +5,6 @@ import com.ondjoss.registry.etcd.EtcdWatcher;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Consumer;
@@ -32,9 +31,9 @@ public abstract class RPCService<T extends RPCClient> implements EtcdServiceAddr
         this.rpcClientFactory = rpcClientFactory;
     }
 
-    public void start() {
+    public void start(String serviceRoot) {
         addrObserver.setAddressesUpdatedListener(this);
-        addrObserver.start();
+        addrObserver.start(serviceRoot);
     }
 
     public void dispose() {
@@ -96,6 +95,7 @@ public abstract class RPCService<T extends RPCClient> implements EtcdServiceAddr
     protected <R> R exec(Function<T, R> func) {
         return client().map(func).orElseThrow();
     }
+
     protected void run(Consumer<T> func) {
         func.accept(client().orElseThrow());
     }
@@ -144,5 +144,6 @@ public abstract class RPCService<T extends RPCClient> implements EtcdServiceAddr
         }
     }
 
-    protected void onActiveClientsChanged(List<T> activeClients){}
+    protected void onActiveClientsChanged(List<T> activeClients) {
+    }
 }
