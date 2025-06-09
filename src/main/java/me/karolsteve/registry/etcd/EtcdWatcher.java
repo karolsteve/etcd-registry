@@ -83,7 +83,7 @@ public class EtcdWatcher {
 
             updateCurrentServers(servers);
 
-            log.warn("Current list size 2i {} -> key is {}/{}", currentServers, serviceRoot, serviceName);
+            log.debug("Current list size 2i {} -> key is {}/{}", currentServers, serviceRoot, serviceName);
         });
     }
 
@@ -129,7 +129,7 @@ public class EtcdWatcher {
                 }
 
                 updateCurrentServers(copy);
-                log.warn("Current list size {}", currentServers);
+                log.debug("Current list size {}", currentServers);
             }
 
             @Override
@@ -139,7 +139,7 @@ public class EtcdWatcher {
 
             @Override
             public void onCompleted() {
-                log.info("Keys watched -> completed");
+                log.debug("Keys watched -> completed");
             }
         });
     }
