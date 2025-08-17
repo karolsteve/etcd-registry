@@ -1,9 +1,43 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
+group 'me.karolsteve'
+version '1.0.0'
 
 repositories {
     mavenCentral()
+    maven {
+        url "https://git.ondjoss.com/api/v4/groups/51/-/packages/maven"
+        name "GitLab"
+        credentials(PasswordCredentials) {
+            username = 'Deploy-Token'
+            password = System.getenv("DEPLOY_TOKEN") ?: gitLabPrivateToken
+        }
+        authentication {
+            basic(BasicAuthentication)
+        }
+    }
+}
+
+publishing {
+    publications {
+        library(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "https://git.ondjoss.com/api/v4/projects/43/packages/maven"
+            credentials(HttpHeaderCredentials) {
+                name = 'Deploy-Token'
+                value = System.getenv("DEPLOY_TOKEN") ?: gitLabPrivateToken
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+        }
+    }
 }
 
 dependencies {
